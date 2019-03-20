@@ -61,6 +61,22 @@ class Include
       end
     end
   end
+end
+
+class Respond
+  attr_accessor :resp
+
+  def initialize(resp)
+    @resp = resp
+  end
+
+  def compare(arg1)
+    if arg1.respond_to?(resp) == true
+      return true
+    else
+      return false
+    end
+  end
 
 end
 
@@ -77,5 +93,8 @@ def includes(value)
   Include.new(value)
 end
 
+def respond_to(value)
+  Respond.new(value)
+end
 
-expect({2 => 1}).to includes(3)
+expect(Equal.new(true)).to respond_to :to
