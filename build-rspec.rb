@@ -32,5 +32,13 @@ class Equal
 
 end
 
-Expect.new(true).to(Equal.new(true))
-Expect.new(true).to(Equal.new(false))
+def expect(value)
+  Expect.new(value)
+end
+
+def eq(value)
+  Equal.new(value)
+end
+
+
+expect(true).to eq true
