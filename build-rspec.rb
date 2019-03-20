@@ -39,13 +39,7 @@ class Include
 
   def compare(arg1)
     if arg1.kind_of?(Array) == true
-      arg1.each do |val|
-        if inc == val
-          return true
-        else
-          return false
-        end
-      end
+      return arg1.include?(inc)
     elsif arg1.kind_of?(Hash) == true
       arg1.each do |key, val|
         if inc == key || inc == val
@@ -54,11 +48,12 @@ class Include
           return false
         end
       end
-    else if inc == arg1
-        return true
-      else
-        return false
-      end
+    elsif inc == arg1
+      return true
+    elsif arg1.include?(inc)
+      return true
+    else
+      return false
     end
   end
 end
@@ -96,7 +91,6 @@ class Be
 end
 
 
-
 def expect(value)
   Expect.new(value)
 end
@@ -117,4 +111,4 @@ def be_a(value)
   Be.new(value)
 end
 
-expect(Equal).to be_a 'Class'
+expect('hello').to includes 'lo'
