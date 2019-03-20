@@ -6,31 +6,49 @@ class Expect
   end
 
   def to(comparison)
-    if comparison.compare(true) == arg1
+    if comparison.compare(arg1) == true
       puts 'Test passes! :)'
     else
       puts 'Test fails! D:'
     end
   end
-
 end
 
 class Equal
-  attr_accessor :arg2
+  attr_accessor :equal
 
-  def initialize(arg2)
-    @arg2 = arg2
+  def initialize(equal)
+    @equal = equal
   end
 
-  def compare(arg)
-    if arg2 == arg
+  def compare(arg1)
+    if equal == arg1
       return true
     else
       return false
     end
   end
+end
+
+class Include
+  attr_accessor :inc
+
+  def initialize(inc)
+    @inc = inc
+  end
+
+  def compare(arg1)
+    arg1.each do |val|
+      if inc == val
+        return true
+      else
+        return false
+      end
+    end
+  end
 
 end
+
 
 def expect(value)
   Expect.new(value)
@@ -40,5 +58,9 @@ def eq(value)
   Equal.new(value)
 end
 
+def includes(value)
+  Include.new(value)
+end
 
-expect(true).to eq true
+
+expect([1,2,3]).to includes(4)
