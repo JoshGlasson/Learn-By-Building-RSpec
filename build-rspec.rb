@@ -1,12 +1,18 @@
 class Expect
+attr_accessor :arg1
 
-  def to_be_equal(arg1, arg2)
+  def initialize(arg1)
+    @arg1 = arg1
+  end
+
+  def to_equal(arg2)
     if arg1 == arg2
-      return 'Test passes! :)'
+      puts 'Test passes! :)'
     else
-      return 'Test fails! D:'
+      puts 'Test fails! D:'
     end
   end
 end
 
-puts Expect.new.to_be_equal(true, true)
+Expect.new(true).to_equal(true)
+Expect.new(true).to_equal(false)
