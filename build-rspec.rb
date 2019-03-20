@@ -46,8 +46,15 @@ class Include
           return false
         end
       end
-    else
-      if inc == arg1
+    elsif arg1.kind_of?(Hash) == true
+      arg1.each do |key, val|
+        if inc == key || inc == val
+          return true
+        else
+          return false
+        end
+      end
+    else if inc == arg1
         return true
       else
         return false
@@ -71,4 +78,4 @@ def includes(value)
 end
 
 
-expect([1,2,3]).to includes(1)
+expect({2 => 1}).to includes(3)
