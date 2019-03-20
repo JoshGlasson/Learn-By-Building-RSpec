@@ -38,8 +38,16 @@ class Include
   end
 
   def compare(arg1)
-    arg1.each do |val|
-      if inc == val
+    if arg1.kind_of?(Array) == true
+      arg1.each do |val|
+        if inc == val
+          return true
+        else
+          return false
+        end
+      end
+    else
+      if inc == arg1
         return true
       else
         return false
@@ -63,4 +71,4 @@ def includes(value)
 end
 
 
-expect([1,2,3]).to includes(4)
+expect([1,2,3]).to includes(1)
