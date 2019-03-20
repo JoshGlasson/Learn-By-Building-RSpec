@@ -77,8 +77,24 @@ class Respond
       return false
     end
   end
-
 end
+
+class Be
+  attr_accessor :be
+
+  def initialize(be)
+    @be = be
+  end
+
+  def compare(arg1)
+    if arg1.kind_of?(Module.const_get(be)) == true
+      return true
+    else
+      return false
+    end
+  end
+end
+
 
 
 def expect(value)
@@ -97,4 +113,8 @@ def respond_to(value)
   Respond.new(value)
 end
 
-expect(Equal.new(true)).to respond_to :to
+def be_a(value)
+  Be.new(value)
+end
+
+expect(Equal).to be_a 'Class'
