@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Expect
   attr_accessor :arg1
 
@@ -7,9 +9,9 @@ class Expect
 
   def to(comparison)
     if comparison.compare(arg1) == true
-      puts 'Test passes! :)'
+      return 'Test passes!'.green
     else
-      puts 'Test fails! D:'
+      return 'Test fails!'.red
     end
   end
 end
@@ -111,4 +113,11 @@ def be_a(value)
   Be.new(value)
 end
 
-expect('hello').to includes 'lo'
+def it(test)
+ value = yield
+ puts "Test '#{test}': #{value}"
+end
+
+it 'Text contains letter' do
+  expect('hello').to includes 'h'
+end
