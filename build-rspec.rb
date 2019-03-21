@@ -85,9 +85,13 @@ class Be
 
   def compare(arg1)
     begin
-      Module.const_get(arg1).kind_of?(Module.const_get(be.capitalize))
+      Module.const_get(arg1)
     rescue
-      return false
+      if arg1.kind_of?(Module.const_get(be.capitalize)) == true
+        return true
+      else
+        return false
+      end
     else
       if Module.const_get(arg1).kind_of?(Module.const_get(be.capitalize)) == true
         return true
@@ -124,14 +128,14 @@ def it(test)
  puts "Test '#{test}': #{value}"
 end
 
-
-
-it 'Text contains letter p' do
-  expect('hello').to includes 'p'
-end
+#Example Tests
 
 it 'Text contains letter h' do
   expect('hello').to includes 'h'
+end
+
+it 'Text contains letter p' do
+  expect('hello').to includes 'p'
 end
 
 it 'Array includes number 3' do
@@ -142,8 +146,20 @@ it 'Array includes number 7' do
   expect([1,2,3]).to includes 7
 end
 
+it 'Hash includes number 1' do
+  expect({"one" => 1}).to includes 1
+end
+
+it 'Hash includes number 4' do
+  expect({"one" => 1}).to includes 4
+end
+
 it 'Expect is a class?' do
   expect('Expect').to be_a 'class'
+end
+
+it 'It is a class?' do
+  expect('It').to be_a 'class'
 end
 
 it 'Equals responds to compare' do
@@ -162,6 +178,10 @@ it 'Numbers are equal: 7 and 3' do
   expect(7).to eq 3
 end
 
-it 'It is a class?' do
-  expect('It').to be_a 'class'
+it '[] is an array?' do
+  expect([]).to be_a 'Array'
+end
+
+it '4 is an array?' do
+  expect(4).to be_a 'Array'
 end
