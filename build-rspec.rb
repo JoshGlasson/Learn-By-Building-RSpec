@@ -124,8 +124,13 @@ def be_a(value)
 end
 
 def it(test)
- value = yield
- puts "Test '#{test}': #{value}"
+  begin
+    value = yield
+  rescue
+    puts "Test '#{test}': Test Error".red
+  else
+    puts "Test '#{test}': #{value}"
+  end
 end
 
 #Example Tests
