@@ -84,10 +84,16 @@ class Be
   end
 
   def compare(arg1)
-    if arg1.kind_of?(Module.const_get(be)) == true
-      return true
-    else
+    begin
+      Module.const_get(arg1).kind_of?(Module.const_get(be.capitalize))
+    rescue
       return false
+    else
+      if Module.const_get(arg1).kind_of?(Module.const_get(be.capitalize)) == true
+        return true
+      else
+        return false
+      end
     end
   end
 end
@@ -118,6 +124,44 @@ def it(test)
  puts "Test '#{test}': #{value}"
 end
 
-it 'Text contains letter' do
+
+
+it 'Text contains letter p' do
+  expect('hello').to includes 'p'
+end
+
+it 'Text contains letter h' do
   expect('hello').to includes 'h'
+end
+
+it 'Array includes number 3' do
+  expect([1,2,3]).to includes 3
+end
+
+it 'Array includes number 7' do
+  expect([1,2,3]).to includes 7
+end
+
+it 'Expect is a class?' do
+  expect('Expect').to be_a 'class'
+end
+
+it 'Equals responds to compare' do
+  expect(Equal.new(true)).to respond_to :compare
+end
+
+it 'Expect responds to compare' do
+  expect(Expect.new(true)).to respond_to :compare
+end
+
+it 'Numbers are equal: 3 and 3' do
+  expect(3).to eq 3
+end
+
+it 'Numbers are equal: 7 and 3' do
+  expect(7).to eq 3
+end
+
+it 'It is a class?' do
+  expect('It').to be_a 'class'
 end
