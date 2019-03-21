@@ -102,6 +102,38 @@ class Be
   end
 end
 
+class Includes_Key
+  attr_accessor :key
+
+  def initialize(key)
+    @key = key
+  end
+
+  def compare(arg1)
+    if arg1.kind_of?(Hash) == true
+      arg1.has_key?(key)
+    else
+      return false
+    end
+  end
+end
+
+class Includes_Val
+  attr_accessor :val
+
+  def initialize(val)
+    @val = val
+  end
+
+  def compare(arg1)
+    if arg1.kind_of?(Hash) == true
+      arg1.has_value?(val)
+    else
+      return false
+    end
+  end
+end
+
 
 def expect(value)
   Expect.new(value)
@@ -121,6 +153,14 @@ end
 
 def be_a(value)
   Be.new(value)
+end
+
+def includes_key(value)
+  Includes_Key.new(value)
+end
+
+def includes_val(value)
+  Includes_Val.new(value)
 end
 
 def it(test)
@@ -189,4 +229,12 @@ end
 
 it '4 is an array?' do
   expect(4).to be_a 'Array'
+end
+
+it 'Hash Key is "one"' do
+  expect({"one" => 1}).to includes_key "one"
+end
+
+it 'Hash Val is 1' do
+  expect({"one" => 1}).to includes_val 1
 end
